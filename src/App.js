@@ -1,26 +1,21 @@
 import React from 'react';
-import logo from './logo.svg';
 import './App.css';
+import {library} from "@fortawesome/fontawesome-svg-core";
+import {faCheckSquare, faCoffee} from "@fortawesome/free-solid-svg-icons";
+import CardsPage from "./containers/cardspage/CardsPage";
+import {BrowserRouter} from "react-router-dom";
+import BookMarkNavbar from "./components/navbar/BookMarkNavbar";
+import LoginForm from "./containers/login/LoginForm";
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+    library.add(faCheckSquare, faCoffee);
+    return (
+        <BrowserRouter>
+            {/*<BookMarkNavbar/>*/}
+            {/*<CardsPage/>*/}
+            <LoginForm/>
+        </BrowserRouter>
+    );
 }
 
 export default App;
