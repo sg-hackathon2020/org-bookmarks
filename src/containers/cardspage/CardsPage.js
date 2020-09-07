@@ -72,7 +72,7 @@ class CardsPage extends Component {
                   return <h1>{this.state.singleCard.id}</h1>
               }
           };*/
-        return (
+        return ( 
             <>
                 <div className="container p-5">
                     <div className="row row justify-content-around">
