@@ -1,5 +1,6 @@
 import React, {Component} from "react";
-import {Button, Form} from "react-bootstrap";
+import {Badge, Button, Form} from "react-bootstrap";
+import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 
 class LoginForm extends Component {
     constructor(props) {
@@ -12,16 +13,17 @@ class LoginForm extends Component {
     render() {
         return (
             <>
-                <div className="container bg-dark">
+                <div className="container bg-dark w-25">
+                    <FontAwesomeIcon icon="coffee"/>
                     <Form>
+                        <Badge variant="primary">Primary</Badge>{' '}
                         <Form.Group controlId="formBasicEmail">
-                            <Form.Label>Email address</Form.Label>
+                            <Form.Label><FontAwesomeIcon icon="coffee"/>Emaila address</Form.Label>
                             <Form.Control type="email" placeholder="Enter email"/>
                             <Form.Text className="text-muted">
                                 We'll never share your email with anyone else.
                             </Form.Text>
                         </Form.Group>
-
                         <Form.Group controlId="formBasicPassword">
                             <Form.Label>Password</Form.Label>
                             <Form.Control type="password" placeholder="Password"/>

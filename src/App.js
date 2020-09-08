@@ -11,9 +11,9 @@ function App() {
     library.add(faCheckSquare, faCoffee);
     return (
         <BrowserRouter>
-            {/*<BookMarkNavbar/>*/}
+            <BookMarkNavbar/>
             {/*<CardsPage/>*/}
-            <LoginForm/>
+            {/*<LoginForm/>*/}
         </BrowserRouter>
     );
 }
