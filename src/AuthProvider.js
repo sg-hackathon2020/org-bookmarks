@@ -2,19 +2,16 @@ import { MsalAuthProvider, LoginType } from "react-aad-msal";
 const tenant = "rakole.onmicrosoft.com";
 const signInPolicy = "B2C_1_reactsignup";
 const applicationID = "2af3af4d-47c8-4ae5-bc09-8821d8d755a9";
-const reactRedirectUri = "http://localhost:3001";
+const reactRedirectUri = "http://localhost:3000";
 const tenantSubdomain = tenant.split(".")[0];
 const instance = `https://${tenantSubdomain}.b2clogin.com/tfp/`;
 const signInAuthority = `${instance}${tenant}/${signInPolicy}`;
 // Msal Configurations
-
-
-
 const signInConfig = {
     auth: {
         authority: signInAuthority,
         clientId: applicationID,
-        redirectUri: reactRedirectUri,
+        /*redirectUri: reactRedirectUri,*/
         validateAuthority: false
     },
     cache: {
@@ -26,7 +23,7 @@ const signInConfig = {
 const authenticationParameters = {
     scopes: [
         "https://graph.microsoft.com/Directory.Read.All",
-        " https://reactTest.onmicrosoft.com/api-1/user_impersonation"
+        "https://rakole.onmicrosoft.com/api/user_impersonation"
     ]
 };
 // Options
