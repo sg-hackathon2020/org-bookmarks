@@ -1,7 +1,9 @@
 import React, {Component} from 'react';
-import {Card, Form} from "react-bootstrap";
+import {Button, Card, Form, Spinner} from "react-bootstrap";
 import {connect} from "react-redux";
+/*
 import Button from "../../../components/UI/Button/Button";
+*/
 import * as actions from "../../../store/actions";
 
 class CreateGroup extends Component {
@@ -22,10 +24,15 @@ class CreateGroup extends Component {
     render() {
 
         let errorMessage = null;
+        let spinner = null;
+
+        if (this.props.loading) {
+            spinner = <Spinner animation="grow" variant="success"/>
+        }
 
         if (this.props.error) {
             errorMessage = (
-                <p>{this.props.error.message}</p>
+                <p className="text-white">{this.props.error.message}</p>
             );
         }
         return (
@@ -52,9 +59,11 @@ class CreateGroup extends Component {
                                 <Form.Label className="text-white">Group Name</Form.Label>
                                 <Form.Control type="text" placeholder="Enter Group Name" onChange={this.onInputChange}/>
                             </Form.Group>
-                            <Button variant="primary" type="submit">
+                            <Button className="p-1 m-1 col-4 d-flex justify-content-center" variant="primary" type="submit" onClick={this.submitHandler}>
                                 Submit
                             </Button>
+                            {spinner}
+                            {errorMessage}
                         </Form>
                     </div>
                 </div>
