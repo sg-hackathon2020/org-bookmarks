@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {Form} from "react-bootstrap";
+import {Card, Form} from "react-bootstrap";
 import {connect} from "react-redux";
 import Button from "../../../components/UI/Button/Button";
 import * as actions from "../../../store/actions";
@@ -29,32 +29,36 @@ class CreateGroup extends Component {
             );
         }
         return (
-            <div>
-                <Form onSubmit={this.submitHandler}>
-                    <Form.Group controlId="groupName">
-                        <Form.Label>Group Name</Form.Label>
-                        <Form.Control type="text" placeholder="Enter Group Name" onChange={this.onInputChange}/>
-                    </Form.Group>
+            <Card style={{width: '50rem'}} className="bg-dark">
+                <div className="container pt-5 pb-5">
+                    <div className="container pt-5 pb-5">
+                        <Form onSubmit={this.submitHandler} className="bg-dark">
+                            <Form.Group controlId="groupName">
+                                <Form.Label className="text-white">Group Name</Form.Label>
+                                <Form.Control type="text" placeholder="Enter Group Name" onChange={this.onInputChange}/>
+                            </Form.Group>
 
-                    <Form.Group controlId="clusterName">
-                        <Form.Label>Cluster Name</Form.Label>
-                        <Form.Control type="text" placeholder="Enter Group Name" onChange={this.onInputChange}/>
-                    </Form.Group>
+                            <Form.Group controlId="clusterName">
+                                <Form.Label className="text-white">Cluster Name</Form.Label>
+                                <Form.Control type="text" placeholder="Enter Group Name" onChange={this.onInputChange}/>
+                            </Form.Group>
 
-                    <Form.Group controlId="tribeName">
-                        <Form.Label>Tribe Name</Form.Label>
-                        <Form.Control type="text" placeholder="Enter Group Name" onChange={this.onInputChange}/>
-                    </Form.Group>
+                            <Form.Group controlId="tribeName">
+                                <Form.Label className="text-white">Tribe Name</Form.Label>
+                                <Form.Control type="text" placeholder="Enter Group Name" onChange={this.onInputChange}/>
+                            </Form.Group>
 
-                    <Form.Group controlId="ftName">
-                        <Form.Label>Group Name</Form.Label>
-                        <Form.Control type="text" placeholder="Enter Group Name" onChange={this.onInputChange}/>
-                    </Form.Group>
-                    <Button variant="primary" type="submit">
-                        Submit
-                    </Button>
-                </Form>
-            </div>
+                            <Form.Group controlId="ftName">
+                                <Form.Label className="text-white">Group Name</Form.Label>
+                                <Form.Control type="text" placeholder="Enter Group Name" onChange={this.onInputChange}/>
+                            </Form.Group>
+                            <Button variant="primary" type="submit">
+                                Submit
+                            </Button>
+                        </Form>
+                    </div>
+                </div>
+            </Card>
         );
     }
 
