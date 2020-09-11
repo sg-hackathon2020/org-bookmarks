@@ -5,3 +5,7 @@ export {
 export {
     groupSave
 } from './group';
+
+export {
+    groupsGetAll
+} from './group';

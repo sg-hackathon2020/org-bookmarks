@@ -94,8 +94,8 @@ class CreateGroup extends Component {
 
 const mapStateToPros = state => {
     return {
-        loading: state.auth.loading,
-        error: state.auth.error
+        loading: state.group.loading,
+        error: state.group.error
     };
 };
 

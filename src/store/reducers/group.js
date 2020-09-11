@@ -4,7 +4,8 @@ import {updateObject} from '../utility';
 
 const initialState = {
     error: null,
-    loading: false
+    loading: false,
+    groups: null
 };
 
 const groupSaveStart = (state, action) => {
@@ -22,6 +23,14 @@ const groupSaveFail = (state, action) => {
     });
 };
 
+const groupsGetAllSuccess = (state, action) => {
+    return updateObject(state, {groups: action.groups})
+}
+
+const groupsGetAll = (state, action) => {
+    return updateObject(state, {error: null});
+}
+
 const reducer = (state = initialState, action) => {
     switch (action.type) {
         case actionTypes.GROUP_SAVE:
@@ -30,6 +39,10 @@ const reducer = (state = initialState, action) => {
             return groupSaveSuccess(state, action);
         case actionTypes.GROUP_SAVE_FAIL:
             return groupSaveFail(state, action);
+        case actionTypes.GROUP_GET_ALL:
+            return groupsGetAll(state, action);
+        case actionTypes.GROUP_GET_ALL_SUCCESS:
+            return groupsGetAllSuccess(state, action);
         default:
             return state;
     }

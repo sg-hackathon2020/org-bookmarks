@@ -3,14 +3,10 @@ import './App.css';
 import {library} from "@fortawesome/fontawesome-svg-core";
 import {Route, Switch} from 'react-router-dom';
 import {faCheckSquare, faCoffee} from "@fortawesome/free-solid-svg-icons";
-import CardsPage from "./containers/cardspage/CardsPage";
-import {BrowserRouter} from "react-router-dom";
 import BookMarkNavbar from "./components/navbar/BookMarkNavbar";
-import LoginForm from "./containers/login/LoginForm";
 import Auth from './containers/Auth/Auth';
 import GroupsPage from "./containers/group/GroupsPage";
 import CreateGroup from "./containers/group/group/CreateGroup";
-import {Helmet} from "react-helmet";
 import TestComponent from "./components/TestComponent";
 
 function App() {
