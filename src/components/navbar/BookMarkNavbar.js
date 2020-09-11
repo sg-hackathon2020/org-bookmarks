@@ -1,8 +1,7 @@
 import React, {Component} from "react";
 import {Nav, Navbar} from "react-bootstrap";
-import CardsPage from "../../containers/cardspage/CardsPage";
-import {Link, Route, } from "react-router-dom";
-import GroupsPage from "../../containers/group/GroupsPage";
+import {Link,} from "react-router-dom";
+
 class BookMarkNavbar extends Component {
     render() {
         return (

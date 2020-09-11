@@ -8,3 +8,8 @@ export const GROUP_SAVE_SUCCESS = 'GROUP_SAVE_SUCCESS';
 export const GROUP_GET_ALL = 'GROUP_ALL_GET';
 export const GROUP_GET_ALL_SUCCESS = 'GROUP_GET_ALL_SUCCESS';
 export const GROUP_GET_ALL_FAILURE = 'GROUP_GET_ALL_FAILURE';
+
+
+
+/*actions for create card*/
+

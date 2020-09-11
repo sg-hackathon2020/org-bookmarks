@@ -8,6 +8,7 @@ import Auth from './containers/Auth/Auth';
 import GroupsPage from "./containers/group/GroupsPage";
 import CreateGroup from "./containers/group/group/CreateGroup";
 import TestComponent from "./components/TestComponent";
+import TestComponent2 from "./components/TestComponent2";
 
 function App() {
     library.add(faCheckSquare, faCoffee);
@@ -21,9 +22,6 @@ function App() {
         <div className="container">
 
             <BookMarkNavbar/>
-            <div className="container invisible"></div>
-            <div className="container invisible"></div>
-            <div className="container invisible"></div>
 
 
             {/*
@@ -33,13 +31,15 @@ function App() {
 
             {/*for auth component use below*/}
             <Switch>
-                <Route path="/newGroup" component={CreateGroup}/>
+
+                <Route path="/groups/new" component={CreateGroup}/>
                 {/*
                     <Route path="/orders" component={Orders} />
 */}
                 <Route path="/auth" exact component={Auth}/>
-                <Route path="/" exact component={GroupsPage}/>
+                <Route path="/groups" exact component={GroupsPage}/>
                 <Route path="/test" exact component={TestComponent}/>
+                <Route path="/groups/:id" component={TestComponent2}/>
             </Switch>
         </div>
     );
