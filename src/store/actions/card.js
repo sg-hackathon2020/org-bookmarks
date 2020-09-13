@@ -96,7 +96,7 @@ export const groupCardReadFailure = (error) => {
 export const readCard = (groupId, cardId, withGroup) => {
     return dispatch => {
         dispatch(cardReadStart());
-        let resourceUrl = `/groups/cards/${cardId}`;
+        let resourceUrl = `http://localhost:8080/groups/cards/${cardId}`;
         axios.get(resourceUrl).then(response => {
             dispatch(cardReadSuccess(response.data));
         }).catch(err => {
@@ -148,9 +148,9 @@ export const createCard = (title, description, url, groupId) => {
     return dispatch => {
         dispatch(cardCreateStart());
         const cardData = extractCardData(title, description, url, groupId);
-        let resourceUrl = `/groups/${groupId}/cards`;
+        let resourceUrl = `http://localhost:8080/groups/${groupId}/cards`;
 
-        myaxios().post(resourceUrl, cardData, config).then(response => {
+        axios.post(resourceUrl, cardData).then(response => {
             dispatch(cardCreateSuccess());
         }).catch(err => {
             dispatch(cardCreateFailure(err));
