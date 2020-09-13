@@ -1,5 +1,5 @@
-import * as actionTypes from '../actions/actionTypes';
-import {updateObject} from '../utility';
+import {updateObject} from "../utility";
+import * as actionTypes from "../actions/actionTypes";
 
 
 const initialState = {
@@ -9,7 +9,7 @@ const initialState = {
 };
 
 const groupSaveStart = (state, action) => {
-    return updateObject(state, {error: null});
+    return updateObject(state, {error: null, loading: true});
 };
 
 const groupSaveSuccess = (state, action) => {

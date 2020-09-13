@@ -3,14 +3,17 @@ import * as actions from "../../../store/actions";
 import {connect} from "react-redux";
 import CardForm from "../../../components/cards/cardform/CardForm";
 
-class CreateCard extends Component {
+class UpdateCard extends Component {
+
     state = {
         //title, description, url, groupId
         title: null,
         description: null,
         url: null,
-        groupId: this.props.match.params.groupId
-    }
+        groupId: this.props.match.params.groupId,
+        cardId: this.props.match.params.cardId,
+        card: null
+    };
 
     cardSubmitHandler = (event) => {
         event.preventDefault();
@@ -20,13 +23,27 @@ class CreateCard extends Component {
     //consume groupId from route param
     componentDidMount() {
         this.setState({id: this.props.match.params.groupId});
+        //fetch the existing object
+        const {fetchCard} = this.props;
+        fetchCard(this.state.group, this.state.cardId);
     }
 
-    render() {
+    updateStateWithOriginal = (card) => {
+        this.setState({
+            title: card.title,
+            description: card.description,
+            url: card.url
+        });
+    };
 
+    render() {
+        const {card, error, pending} = this.props;
+        const cardArray = {...card};
         return (
+
             <CardForm whenInputChanges={this.onInputChange} whenFormIsSubmitted={this.cardSubmitHandler}
-                      loading={this.props.loading} error={this.props.error} isUpdating={false}/>
+                      loading={this.props.loading} error={this.props.error} data={cardArray}
+                      isUpdating={true}/>
         );
     }
 
@@ -50,14 +67,17 @@ class CreateCard extends Component {
 const mapStateToProps = state => {
     return {
         loading: state.card.loading,
-        error: state.card.error
+        error: state.card.error,
+        card: state.card.update_card
+
     };
 };
 
 const mapDispatchToProps = dispatch => {
     return {
-        onCardSave: (title, description, url, groupId) => dispatch(actions.createCard(title, description, url, groupId))
+        onCardSave: (title, description, url, groupId) => dispatch(actions.updateCard(title, description, url, groupId)),
+        fetchCard: (groupId, cardId) => dispatch(actions.readCard(groupId, cardId, false))
     };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(CreateCard);
+export default connect(mapStateToProps, mapDispatchToProps)(UpdateCard);

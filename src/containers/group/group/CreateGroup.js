@@ -1,9 +1,7 @@
 import React, {Component} from 'react';
 import {Button, Card, Form, Spinner} from "react-bootstrap";
 import {connect} from "react-redux";
-/*
-import Button from "../../../components/UI/Button/Button";
-*/
+
 import * as actions from "../../../store/actions";
 
 class CreateGroup extends Component {
@@ -17,7 +15,6 @@ class CreateGroup extends Component {
 
     submitHandler = (event) => {
         event.preventDefault();
-        console.log(this.state);
         this.props.onGroupSave(this.state.groupName, this.state.clusterName, this.state.tribeName, this.state.ftName);
     }
 
@@ -59,7 +56,8 @@ class CreateGroup extends Component {
                                 <Form.Label className="text-white">Group Name</Form.Label>
                                 <Form.Control type="text" placeholder="Enter Group Name" onChange={this.onInputChange}/>
                             </Form.Group>
-                            <Button className="p-1 m-1 col-4 d-flex justify-content-center" variant="primary" type="submit" onClick={this.submitHandler}>
+                            <Button className="p-1 m-1 col-4 d-flex justify-content-center" variant="primary"
+                                    type="submit" onClick={this.submitHandler}>
                                 Submit
                             </Button>
                             {spinner}

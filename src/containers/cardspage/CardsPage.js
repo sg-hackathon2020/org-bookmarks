@@ -1,44 +1,23 @@
 import React, {Component} from "react";
 import BookMarkCard from "../../components/cards/BookMarkCard";
-import axios from 'axios';
-import BookMarkNavbar from "../../components/navbar/BookMarkNavbar";
+import * as actions from "../../store/actions";
+import {connect} from "react-redux";
+import {Alert, Button, Spinner} from "react-bootstrap";
+import LoadingComponent from "../../components/UI/loading/LoadingComponent";
 
 class CardsPage extends Component {
 
-    constructor(props) {
-        super(props);
+    state = {
+        cards: [],
+        groupId: this.props.match.params.groupId,
+        loading: null,
+        error: null
+    };
 
-        this.state = {
-            cards: [],
-            showSinglePost: null,
-            singleCard: null
-
-        };
-
-    }
-
-    //on click show the single element somewhere else
-    componentDidUpdate(prevProps, prevState, snapshot) {
-        const id = 1;
-        if (this.state.showSinglePost) {
-            //only call if new id has been requested, otherwise will go in infinite loop
-            if (!this.state.singleCard || (this.state.singleCard && this.state.singleCard.id !== this.state.showSinglePost)) {
-                axios.get('http://localhost:8080/api/v1/cards/' + this.state.showSinglePost)
-                    .then(response => {
-                        this.setState({singleCard: response.data})
-                    });
-            }
-
-        }
-    }
-
-    //lifecycle method
     componentDidMount() {
-        axios.get('http://localhost:8080/api/v1/cards')
-            .then(response => {
-                this.setState({cards: response.data});
-                //console.log(response)
-            });
+        this.setState({groupId: this.props.match.params.groupId});
+        const {fetchCards} = this.props;
+        fetchCards(this.state.groupId);
     }
 
 
@@ -52,39 +31,50 @@ class CardsPage extends Component {
     /*todo: make cards visually clickable and show modal
     *  i have already added on on click even and method cardSelectedHandler*/
     render() {
-        const cards = this.state.cards.map(card => {
+        console.log(this.props);
+        const {cards, error, loading} = this.props;
+        let fetchedCards = null;
+        let loadingOrNoItems = null;
+        if (loading) {
+            loadingOrNoItems = <LoadingComponent loading={loading}/>
+        }
 
-            return <BookMarkCard key={card.id}
-                                 title={card.title}
-                                 description={card.description}
-                                 tinyUrl={card.shortUrl}
-                                 clicked={() => this.cardSelectedHandler(card.id)}/>
-
-        });
-        /*
-                const [modalShow, setModalShow] = React.useState(false);
-        */
-        /*  const showData = () => {
-              if(this.state.singleCard.id===null){
-                  return <></>;
-              }else {
-                  console.log('i am here');
-                  return <h1>{this.state.singleCard.id}</h1>
-              }
-          };*/
-        return ( 
+        if (cards && !loading) {
+            fetchedCards = [...cards].map(card => {
+                return <BookMarkCard key={card.id}
+                                     title={card.title}
+                                     description={card.description}
+                                     tinyUrl={card.shortUrl}
+                                     clicked={() => this.cardSelectedHandler(card.id)}/>
+            });
+        }
+        return (
             <>
                 <div className="container p-5">
+                    {loadingOrNoItems}
                     <div className="row row justify-content-around">
-                        {cards}
+                        {fetchedCards}
                     </div>
                 </div>
-                {/*{showData}*/}
             </>
         );
     }
 }
 
-CardsPage.propTypes = {};
 
-export default CardsPage;
+const mapStateToProps = state => {
+    return {
+        loading: state.card.loading,
+        error: state.card.error,
+        cards: state.card.cards
+    };
+};
+
+const mapDispatchToProps = dispatch => {
+    return {
+        fetchCards: (groupId) => dispatch(actions.readGroupCard(groupId))
+    };
+};
+
+
+export default connect(mapStateToProps, mapDispatchToProps)(CardsPage);

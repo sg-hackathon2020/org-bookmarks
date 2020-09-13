@@ -10,6 +10,22 @@ export const GROUP_GET_ALL_SUCCESS = 'GROUP_GET_ALL_SUCCESS';
 export const GROUP_GET_ALL_FAILURE = 'GROUP_GET_ALL_FAILURE';
 
 
-
 /*actions for create card*/
+export const CARD_CREATE_START = 'CARD_CREATE_START';
+export const CARD_CREATE_SUCCESS = 'CARD_CREATE_SUCCESS';
+export const CARD_CREATE_FAILURE = 'CARD_CREATE_FAILURE';
 
+/*actions for update card*/
+export const CARD_UPDATE_START = 'CARD_UPDATE_START';
+export const CARD_UPDATE_SUCCESS = 'CARD_UPDATE_SUCCESS';
+export const CARD_UPDATE_FAILURE = 'CARD_UPDATE_FAILURE';
+
+/*read one card cards*/
+export const CARD_READ_START = 'CARD_READ_START';
+export const CARD_READ_SUCCESS = 'CARD_READ_SUCCESS';
+export const CARD_READ_FAILURE = 'CARD_READ_FAILURE';
+
+/*get all cards for a group*/
+export const GROUP_CARD_READ_START = 'GROUP_CARD_READ_START';
+export const GROUP_CARD_READ_SUCCESS = 'GROUP_CARD_READ_SUCCESS';
+export const GROUP_CARD_READ_FAILURE = 'GROUP_CARD_READ_FAILURE';

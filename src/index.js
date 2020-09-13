@@ -15,12 +15,14 @@ import {createStore, applyMiddleware, compose, combineReducers} from 'redux';
 import thunk from 'redux-thunk';
 import authReducer from './store/reducers/auth';
 import groupReducer from './store/reducers/group';
+import cardReducer from "./store/reducers/card";
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
 const rootReducer = combineReducers({
     auth: authReducer,
-    group: groupReducer
+    group: groupReducer,
+    card: cardReducer
 });
 
 const store = createStore(rootReducer, composeEnhancers(

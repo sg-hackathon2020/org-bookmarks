@@ -44,7 +44,7 @@ export const groupSaveFail = (error) => {
 axios.interceptors.request.use(request => {
     console.log('Starting Request', request)
     return request
-})
+});
 
 export const groupsGetAll = () => {
     return dispatch => {
@@ -52,10 +52,8 @@ export const groupsGetAll = () => {
 
         let url = 'http://localhost:8080/api/v1/group'
         axios.get(url).then(response => {
-            console.log(response);
             dispatch(getAllGroupsSuccess(response.data))
         }).catch(err => {
-                console.log(err);
                 dispatch(getAllGroupsFailure(err));
             }
         );
