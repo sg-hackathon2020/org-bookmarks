@@ -96,8 +96,12 @@ export const groupCardReadFailure = (error) => {
 export const readCard = (groupId, cardId, withGroup) => {
     return dispatch => {
         dispatch(cardReadStart());
-        let resourceUrl = `http://localhost:8080/groups/cards/${cardId}`;
-        axios.get(resourceUrl).then(response => {
+        let resourceUrl = `http://localhost:8080/api/v1/groups/cards/${cardId}`;
+        axios.get(resourceUrl, {
+            headers: {
+                'Authorization': `Bearer ${localStorage.getItem('token')}`
+            }
+        }).then(response => {
             dispatch(cardReadSuccess(response.data));
         }).catch(err => {
             dispatch(cardReadFailure(err));
@@ -109,7 +113,11 @@ export const readGroupCard = (groupId) => {
     return dispatch => {
         dispatch(groupCardReadStart());
         let resourceUrl = `http://localhost:8080/api/v1/groups/${groupId}/cards/`;
-        axios.get(resourceUrl).then(response => {
+        axios.get(resourceUrl, {
+            headers: {
+                'Authorization': `Bearer ${localStorage.getItem('token')}`
+            }
+        }).then(response => {
             console.log(response);
             dispatch(groupCardReadSuccess(response.data));
         }).catch(err => {
@@ -134,9 +142,13 @@ export const updateCard = (title, description, url, groupId) => {
         const cardData = extractCardData(title, description, url, groupId);
 
 
-        let resourceUrl = `http://localhost:8080/groups/${groupId}/cards`;
+        let resourceUrl = `http://localhost:8080/api/v1/groups/${groupId}/cards`;
 
-        axios.put(resourceUrl, cardData).then(response => {
+        axios.put(resourceUrl, cardData, {
+            headers: {
+                'Authorization': `Bearer ${localStorage.getItem('token')}`
+            }
+        }).then(response => {
             dispatch(cardUpdateSuccess());
         }).catch(err => {
             dispatch(cardUpdateFailure(err));
@@ -148,9 +160,13 @@ export const createCard = (title, description, url, groupId) => {
     return dispatch => {
         dispatch(cardCreateStart());
         const cardData = extractCardData(title, description, url, groupId);
-        let resourceUrl = `http://localhost:8080/groups/${groupId}/cards`;
+        let resourceUrl = `http://localhost:8080/api/v1/groups/${groupId}/cards`;
 
-        axios.post(resourceUrl, cardData).then(response => {
+        axios.post(resourceUrl, cardData, {
+            headers: {
+                'Authorization': `Bearer ${localStorage.getItem('token')}`
+            }
+        }).then(response => {
             dispatch(cardCreateSuccess());
         }).catch(err => {
             dispatch(cardCreateFailure(err));

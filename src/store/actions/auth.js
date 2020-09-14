@@ -63,6 +63,9 @@ export const auth = (email, password, isSignup) => {
                 localStorage.setItem('userId', response.data.userId);
                 dispatch(authSuccess(response.data.idToken, response.data.localId));
                 dispatch(checkAuthTimeout(response.data.expiresIn));
+                axios.get('http://localhost:8080/api/v1/users/validate', {
+                    "Authorization": `Bearer ${localStorage.getItem('token')}`
+                }).catch(err => console.log(err));
             })
             .catch(err => {
                 console.log(err);
@@ -83,8 +86,8 @@ export const authCheckState = () => {
             } else {
                 const userId = localStorage.getItem('userId');
                 dispatch(logout(token, userId));
-                dispatch(checkAuthTimeout(expirationTime.getSeconds() - new Date().getSeconds()));
+                dispatch(checkAuthTimeout((expirationTime.getTime() - new Date().getTime()) / 1000));
             }
         }
-    }
-}
+    };
+};
