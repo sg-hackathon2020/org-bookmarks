@@ -15,6 +15,7 @@ import CardsPage from "./containers/cardspage/CardsPage";
 import Logout from "./containers/Auth/logout/Logout";
 import * as actions from './store/actions/index';
 import {connect} from 'react-redux';
+import AddRemoveAdmin from "./containers/admin/AddRemoveAdmin";
 
 
 class App extends Component {
@@ -25,27 +26,14 @@ class App extends Component {
     render() {
         library.add(faCheckSquare, faCoffee);
         return (
-            /* <BrowserRouter>
-                 <BookMarkNavbar/>
-                 {/!*<CardsPage/>*!/}
-                 {/!*<LoginForm/>*!/}
-             </BrowserRouter>*/
 
             <div className="container">
 
 
-                {/*
-            <GroupsPage/>
-*/}
-                {/*<Layout>*/}
                 <BookMarkNavbar/>
 
-                {/*for auth component use below*/}
                 <Switch>
                     <Route path="/groups/new" component={CreateGroup}/>
-                    {/*
-                    <Route path="/orders" component={Orders} />
-*/}
                     <Route path="/auth" exact component={Auth}/>
                     <Route path="/groups" exact component={GroupsPage}/>
                     <Route path="/test" exact component={TestComponent}/>
@@ -53,6 +41,7 @@ class App extends Component {
                     <Route path="/groups/:id" exact component={TestComponent2}/>
                     <Route path="/card-update/:groupId/:cardId" component={UpdateCard}/>
                     <Route path="/cards-page/:groupId" component={CardsPage}/>
+                    <Route path="/add-remove-admin" component={AddRemoveAdmin}/>
                     <Route path="/logout" component={Logout}/>
                     <Redirect to="/"/>
                 </Switch>

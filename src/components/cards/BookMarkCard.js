@@ -12,6 +12,7 @@ const BookMarkCard = (props) => (
                     {props.description}
                 </Card.Text>
                 <Button variant="primary">{props.tinyUrl}</Button>
+                <Button variant="warning" onClick={props.whenEdit}>Edit</Button>
             </Card.Body>
         </Card>
     </div>
