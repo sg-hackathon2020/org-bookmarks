@@ -12,13 +12,15 @@ import thunk from 'redux-thunk';
 import authReducer from './store/reducers/auth';
 import groupReducer from './store/reducers/group';
 import cardReducer from "./store/reducers/card";
+import adminReducer from './store/reducers/admin';
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
 const rootReducer = combineReducers({
     auth: authReducer,
     group: groupReducer,
-    card: cardReducer
+    card: cardReducer,
+    admin: adminReducer
 });
 
 const store = createStore(rootReducer, composeEnhancers(

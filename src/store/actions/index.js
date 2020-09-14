@@ -19,3 +19,9 @@ export {
     readGroupCard
 }
     from './card';
+
+export {
+    getAdminView,
+    toggleAdmin
+}
+    from './admin';

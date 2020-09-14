@@ -112,7 +112,7 @@ export const readCard = (groupId, cardId, withGroup) => {
 export const readGroupCard = (groupId) => {
     return dispatch => {
         dispatch(groupCardReadStart());
-        let resourceUrl = `http://localhost:8080/api/v1/groups/${groupId}/cards/`;
+        let resourceUrl = `http://localhost:8080/api/v1/groups/${groupId}/cards`;
         axios.get(resourceUrl, {
             headers: {
                 'Authorization': `Bearer ${localStorage.getItem('token')}`
