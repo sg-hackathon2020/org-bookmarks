@@ -5,6 +5,7 @@ import * as actions from "../../store/actions";
 import Button from "react-bootstrap/Button";
 import {Link} from "react-router-dom";
 import Table from "react-bootstrap/Table";
+import {Spinner} from "react-bootstrap";
 
 
 class GroupsPage extends Component {
@@ -21,9 +22,14 @@ class GroupsPage extends Component {
     }
 
     render() {
-        const {groups, error, pending} = this.props;
+        const {groups, loading} = this.props;
+
+        let spinner = null;
+
+        if (loading) {
+            spinner = <Spinner animation="grow" variant="success"/>
+        }
         let table = null;
-        console.log(groups);
         if (groups) {
             table = groups.map(group => {
                 return <tr>
@@ -40,6 +46,7 @@ class GroupsPage extends Component {
             <div className="container">
                 <div className="row p-1"><NewGroupButton/></div>
                 <div className="row p-1">
+                    {spinner}
                     <Table striped bordered hover variant="dark">
                         <thead>
                         <tr>
@@ -60,7 +67,9 @@ class GroupsPage extends Component {
 }
 
 const mapStateToProps = state => ({
-    groups: state.group.groups
+    groups: state.group.groups,
+    error: state.group.error,
+    loading: state.group.loading
 })
 
 const mapDispatchToProps = dispatch => {

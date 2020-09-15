@@ -1,11 +1,8 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import {Redirect} from "react-router-dom";
-/*
-import Button from '../../components/UI/Button/Button';
-*/
 import * as actions from '../../store/actions/index';
-import {Button, Card, Form, Spinner} from "react-bootstrap";
+import {Alert, Button, Card, Form, Spinner} from "react-bootstrap";
 
 class Auth extends Component {
     state = {
@@ -31,10 +28,6 @@ class Auth extends Component {
 
     render() {
 
-        /* if (this.props.loading) {
-             form = <Spinner animation="grow" variant="success"/>
-         }*/
-
         let errorMessage = null;
         let spinner = null;
 
@@ -43,8 +36,30 @@ class Auth extends Component {
         }
 
         if (this.props.error) {
+            let err;
+            switch (this.props.error.message) {
+                case 'ADMIN_ONLY_OPERATION':
+                    err = 'Please Enter Something!';
+                    break;
+                case 'MISSING_EMAIL':
+                    err = 'Enter Email Id!';
+                    break;
+                case 'MISSING_PASSWORD':
+                    err = 'Enter Password!';
+                    break;
+                case 'EMAIL_EXISTS':
+                    err = 'Email Already Exists! Switch To Sign-In!'
+                    break;
+                default:
+                    err = this.props.error.message;
+                    break;
+            }
             errorMessage = (
-                <p className="text-white">{this.props.error.message}</p>
+                <>
+                    <Alert variant="danger">
+                        <p className="text-blue">{err}</p>
+                    </Alert>
+                </>
             );
         }
         let authRedirect = null;
@@ -68,12 +83,14 @@ class Auth extends Component {
                                         <Form.Control type="password" placeholder="Enter Password"
                                                       onChange={this.onInputChange}/>
                                     </Form.Group>
-                                    <Button className="p-1 m-1 col-4 d-flex justify-content-center" variant="primary"
+                                    <Button className="container-fluid d-flex justify-content-center m-1"
+                                            variant="outline-primary"
                                             type="submit">
                                         Submit
                                     </Button>
                                 </Form>
-                                <Button className="p-1 m-1 col-4 d-flex justify-content-center"
+                                <Button className="container-fluid d-flex justify-content-center m-1"
+                                        variant="outline-info"
                                         onClick={this.switchAuthModeHandler}
                                         btnType="Danger">SWITCH TO {this.state.isSignup ? 'SIGNIN' : 'SIGNUP'}</Button>
                                 {spinner}

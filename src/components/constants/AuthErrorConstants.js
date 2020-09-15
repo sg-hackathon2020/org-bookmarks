@@ -1,0 +1,1 @@
+const ADMIN_ONLY_OPERATION = 'admin only operation!';

@@ -2,6 +2,7 @@ import React, {Component} from "react";
 import * as actions from "../../../store/actions";
 import {connect} from "react-redux";
 import CardForm from "../../../components/cards/cardform/CardForm";
+import {Spinner} from "react-bootstrap";
 
 class UpdateCard extends Component {
 
@@ -37,13 +38,19 @@ class UpdateCard extends Component {
     };
 
     render() {
-        const {card, error, pending} = this.props;
+        const {card, loading} = this.props;
         const cardArray = {...card};
-        return (
 
-            <CardForm whenInputChanges={this.onInputChange} whenFormIsSubmitted={this.cardSubmitHandler}
-                      loading={this.props.loading} error={this.props.error} data={cardArray}
-                      isUpdating={true}/>
+        let spinner = null;
+
+        if (loading) {
+            spinner = <Spinner animation="grow" variant="success"/>
+        }
+        return (
+            <> {spinner}
+                <CardForm whenInputChanges={this.onInputChange} whenFormIsSubmitted={this.cardSubmitHandler}
+                          loading={this.props.loading} error={this.props.error} data={cardArray}
+                          isUpdating={true}/></>
         );
     }
 
@@ -68,8 +75,7 @@ const mapStateToProps = state => {
     return {
         loading: state.card.loading,
         error: state.card.error,
-        card: state.card.update_card
-
+        card: state.card.update_card,
     };
 };
 
