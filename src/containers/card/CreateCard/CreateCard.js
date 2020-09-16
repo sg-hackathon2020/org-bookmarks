@@ -2,6 +2,8 @@ import React, {Component} from "react";
 import * as actions from "../../../store/actions";
 import {connect} from "react-redux";
 import CardForm from "../../../components/cards/cardform/CardForm";
+import {Redirect} from "react-router-dom";
+import {Spinner} from "react-bootstrap";
 
 class CreateCard extends Component {
     state = {
@@ -9,12 +11,13 @@ class CreateCard extends Component {
         title: null,
         description: null,
         url: null,
+        prefix: null,
         groupId: this.props.match.params.groupId
     }
 
     cardSubmitHandler = (event) => {
         event.preventDefault();
-        this.props.onCardSave(this.state.title, this.state.description, this.state.url, this.state.groupId);
+        this.props.onCardSave(this.state.title, this.state.description, this.state.url, this.state.groupId, this.state.prefix);
     }
 
     //consume groupId from route param
@@ -24,9 +27,25 @@ class CreateCard extends Component {
 
     render() {
 
-        return (
-            <CardForm whenInputChanges={this.onInputChange} whenFormIsSubmitted={this.cardSubmitHandler}
-                      loading={this.props.loading} error={this.props.error} isUpdating={false}/>
+        const {card, loading} = this.props;
+        const cardArray = {...card};
+
+        let spinner = null;
+
+        if (loading) {
+            spinner = <Spinner animation="grow" variant="success"/>
+        }
+        let redirect = null;
+        if (this.props.redirectTo) {
+            redirect = <Redirect to="/"/>
+        }
+
+        return (<>
+                {redirect}
+                {spinner}
+                <CardForm whenInputChanges={this.onInputChange} whenFormIsSubmitted={this.cardSubmitHandler}
+                          loading={this.props.loading} error={this.props.error} isUpdating={false}/>
+            </>
         );
     }
 
@@ -34,6 +53,9 @@ class CreateCard extends Component {
         switch (id) {
             case 'title':
                 this.setState({title: value});
+                break;
+            case 'prefix':
+                this.setState({prefix: value});
                 break;
             case 'description':
                 this.setState({description: value});
@@ -50,13 +72,14 @@ class CreateCard extends Component {
 const mapStateToProps = state => {
     return {
         loading: state.card.loading,
-        error: state.card.error
+        error: state.card.error,
+        redirectTo: state.card.redirectTo
     };
 };
 
 const mapDispatchToProps = dispatch => {
     return {
-        onCardSave: (title, description, url, groupId) => dispatch(actions.createCard(title, description, url, groupId))
+        onCardSave: (title, description, url, groupId, prefix) => dispatch(actions.createCard(title, description, url, groupId, prefix))
     };
 };
 

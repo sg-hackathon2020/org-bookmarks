@@ -6,7 +6,8 @@ const initialState = {
     loading: false,
     card: null,
     update_card: null,
-    cards: null
+    cards: null,
+    redirectTo: null
 };
 
 const cardCreateStart = (state, action) => {
@@ -17,7 +18,7 @@ const cardCreateStart = (state, action) => {
 };
 
 const cardCreateSuccess = (state, action) => {
-    return updateObject(state, {loading: false});
+    return updateObject(state, {loading: false, redirectTo: true});
 };
 
 const cardCreateFailure = (state, action) => {
@@ -35,7 +36,7 @@ const cardUpdateStart = (state, action) => {
 };
 
 const cardUpdateSuccess = (state, action) => {
-    return updateObject(state, {loading: false});
+    return updateObject(state, {loading: false, redirectTo: true});
 };
 
 const cardUpdateFailure = (state, action) => {

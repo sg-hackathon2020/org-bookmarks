@@ -127,19 +127,29 @@ export const readGroupCard = (groupId) => {
 };
 
 
-function extractCardData(title, description, url, groupId) {
+function extractCardData(title, description, url, groupId, prefix) {
     return {
         title: title,
         description: description,
         url: url,
-        groupId: groupId
+        groupId: groupId,
+        prefix: prefix
     };
 }
 
-export const updateCard = (title, description, url, groupId) => {
+function extractCardDataForUpdate(title, description, url, cardId) {
+    return {
+        title: title,
+        description: description,
+        url: url,
+        cardId: cardId
+    };
+}
+
+export const updateCard = (title, description, url, cardId, groupId) => {
     return dispatch => {
         dispatch(cardUpdateStart());
-        const cardData = extractCardData(title, description, url, groupId);
+        const cardData = extractCardDataForUpdate(title, description, url, cardId);
 
 
         let resourceUrl = `http://localhost:8080/api/v1/groups/${groupId}/cards`;
@@ -156,10 +166,10 @@ export const updateCard = (title, description, url, groupId) => {
     };
 };
 
-export const createCard = (title, description, url, groupId) => {
+export const createCard = (title, description, url, groupId, prefix) => {
     return dispatch => {
         dispatch(cardCreateStart());
-        const cardData = extractCardData(title, description, url, groupId);
+        const cardData = extractCardData(title, description, url, groupId, prefix);
         let resourceUrl = `http://localhost:8080/api/v1/groups/${groupId}/cards`;
 
         axios.post(resourceUrl, cardData, {

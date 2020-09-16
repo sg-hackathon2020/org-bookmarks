@@ -16,6 +16,7 @@ import Logout from "./containers/Auth/logout/Logout";
 import * as actions from './store/actions/index';
 import {connect} from 'react-redux';
 import AddRemoveAdmin from "./containers/admin/AddRemoveAdmin";
+import LandingPage from "./containers/landing/LandingPage";
 
 
 class App extends Component {
@@ -43,6 +44,7 @@ class App extends Component {
                     <Route path="/cards-page/:groupId" component={CardsPage}/>
                     <Route path="/add-remove-admin" component={AddRemoveAdmin}/>
                     <Route path="/logout" component={Logout}/>
+                    <Route path="/" exact component={LandingPage}/>}
                     <Redirect to="/"/>
                 </Switch>
             </div>
