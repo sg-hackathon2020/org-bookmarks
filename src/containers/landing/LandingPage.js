@@ -1,5 +1,6 @@
 import React, {Component} from "react";
 import InfoCards from "../../components/infocards/InfoCards";
+import TinyUrl from "../tinyurl/TinyUrl";
 
 class LandingPage extends Component {
     constructor(props) {
@@ -27,6 +28,7 @@ class LandingPage extends Component {
                         <InfoCards cardTitle={thirdCardTitle} vals={5}/>
                     </div>
                 </div>
+                <TinyUrl/>
             </div>
         )
             ;

@@ -22,10 +22,6 @@ class Auth extends Component {
         });
     }
 
-    spinner = () => {
-
-    }
-
     render() {
 
         let errorMessage = null;

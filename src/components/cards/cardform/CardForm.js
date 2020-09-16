@@ -55,7 +55,7 @@ class CardForm extends Component {
 
         let urlFormControl = null;
         if (this.props.isUpdating) {
-            urlFormControl = <Form.Control type="url" placeholder="Enter Url" value={this.props.data.url}
+            urlFormControl = <Form.Control type="url" placeholder="Enter Url" value={this.props.data.fullUrl}
                                            disabled={this.props.isUpdating}
                                            onChange={this.handleInputChange}/>
         } else {
@@ -65,7 +65,7 @@ class CardForm extends Component {
 
         let prefixFormControl = null;
         if (this.props.isUpdating) {
-            prefixFormControl = <Form.Control type="text" placeholder="Enter Prefix" value={this.props.data.url}
+            prefixFormControl = <Form.Control type="text" placeholder="Enter Prefix" value={this.props.data.prefix}
                                               disabled={this.props.isUpdating}
                                               onChange={this.handleInputChange}/>
         } else {

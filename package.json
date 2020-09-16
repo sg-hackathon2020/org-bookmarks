@@ -12,6 +12,8 @@
     "@testing-library/user-event": "^7.2.1",
     "axios": "^0.18.1",
     "bootstrap": "^4.5.2",
+    "enzyme": "^3.11.0",
+    "enzyme-adapter-react-16": "^1.15.4",
     "msal": "^1.4.0",
     "react": "^16.13.1",
     "react-aad-msal": "^2.3.5",
@@ -22,6 +24,7 @@
     "react-redux": "^6.0.0",
     "react-router-dom": "^4.3.1",
     "react-scripts": "3.4.3",
+    "react-test-renderer": "^16.13.1",
     "redux": "^4.0.1",
     "redux-thunk": "^2.3.0"
   },

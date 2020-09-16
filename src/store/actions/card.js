@@ -92,6 +92,7 @@ export const groupCardReadFailure = (error) => {
     };
 };
 
+/*read the card for displaying on card edit page*/
 
 export const readCard = (groupId, cardId, withGroup) => {
     return dispatch => {
@@ -102,6 +103,7 @@ export const readCard = (groupId, cardId, withGroup) => {
                 'Authorization': `Bearer ${localStorage.getItem('token')}`
             }
         }).then(response => {
+            console.log(response.data);
             dispatch(cardReadSuccess(response.data));
         }).catch(err => {
             dispatch(cardReadFailure(err));
