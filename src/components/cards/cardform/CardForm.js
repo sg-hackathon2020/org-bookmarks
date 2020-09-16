@@ -1,5 +1,5 @@
 import React, {Component} from "react";
-import {Button, Card, Form, Spinner} from "react-bootstrap";
+import {Button, Card, Col, Form, Row, Spinner} from "react-bootstrap";
 
 class CardForm extends Component {
     constructor(props) {
@@ -63,12 +63,29 @@ class CardForm extends Component {
                                            onChange={this.handleInputChange} disabled={this.props.loading}/>
         }
 
+        let prefixFormControl = null;
+        if (this.props.isUpdating) {
+            prefixFormControl = <Form.Control type="text" placeholder="Enter Prefix" value={this.props.data.url}
+                                              disabled={this.props.isUpdating}
+                                              onChange={this.handleInputChange}/>
+        } else {
+            prefixFormControl = <Form.Control type="text" placeholder="Enter Prefix"
+                                              onChange={this.handleInputChange} disabled={this.props.loading}/>
+        }
+
+        let pageTitle = null;
+        if (this.props.isUpdating) {
+            pageTitle = <div className="h3 text-white">Update Card</div>
+        } else {
+            pageTitle = <div className="h3 text-white">Update Card</div>
+        }
 
         return (
-            <Card style={{width: '50rem'}} className="bg-dark">
-                <div className="container pt-5 pb-5">
+            <div className="container-fluid d-flex justify-content-center">
+                <Card style={{width: '40rem'}} className="bg-dark">
                     <div className="container pt-5 pb-5">
-                        <Form onSubmit={this.handleFormSubmit} className="bg-dark" >
+                        {pageTitle}
+                        <Form onSubmit={this.handleFormSubmit} className="bg-dark">
                             <Form.Group controlId="title">
                                 <Form.Label
                                     className="text-white">title
@@ -76,19 +93,29 @@ class CardForm extends Component {
                                 {titleFormControl}
                             </Form.Group>
 
-
-                            <Form.Group controlId="description">
-                                <Form.Label className="text-white">
-                                    Description</Form.Label>
-                                {descriptionFormControl}
-                            </Form.Group>
+                            <Row>
+                                <Col>
+                                    <Form.Group controlId="description">
+                                        <Form.Label className="text-white">
+                                            Description</Form.Label>
+                                        {descriptionFormControl}
+                                    </Form.Group>
+                                </Col>
+                                <Col>
+                                    <Form.Group controlId="prefix">
+                                        <Form.Label className="text-white">
+                                            Prefix</Form.Label>
+                                        {prefixFormControl}
+                                    </Form.Group>
+                                </Col>
+                            </Row>
 
                             <Form.Group controlId="url">
                                 <Form.Label className="text-white">Enter Url</Form.Label>
                                 {urlFormControl}
                             </Form.Group>
 
-                            <Button className="p-1 m-1 col-4 d-flex justify-content-center" variant="primary"
+                            <Button className="container-fluid d-flex justify-content-center m-1" variant="outline-info"
                                     type="submit" onClick={this.handleFormSubmit}>
                                 Submit
                             </Button>
@@ -96,8 +123,9 @@ class CardForm extends Component {
                             {errorMessage}
                         </Form>
                     </div>
-                </div>
-            </Card>
+                </Card>
+            </div>
+
         );
     }
 }

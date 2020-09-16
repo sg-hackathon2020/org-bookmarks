@@ -4,6 +4,8 @@ import * as actions from "../../store/actions";
 import {connect} from "react-redux";
 import LoadingComponent from "../../components/UI/loading/LoadingComponent";
 import {Redirect} from "react-router-dom";
+import {Button} from "react-bootstrap";
+
 
 class CardsPage extends Component {
 
@@ -13,7 +15,9 @@ class CardsPage extends Component {
         loading: null,
         error: null,
         editPressed: false,
-        editUrl: null
+        editUrl: null,
+        addPressed: false,
+        addUrl: null
     };
 
     componentDidMount() {
@@ -27,6 +31,14 @@ class CardsPage extends Component {
         this.setState({showSinglePost: id})
         console.log('selected post');
         console.log(id);
+    }
+
+    createCard = (groupId) => {
+
+        this.setState({
+            editPressed: true,
+            editUrl: `/card-create/${groupId}`
+        });
     }
 
     cardEditHandler = (id) => {
@@ -44,7 +56,6 @@ class CardsPage extends Component {
     render() {
         console.log(this.props);
         const {cards, error, loading} = this.props;
-        let redirectToEdit;
         if (this.state.editPressed) {
             return <Redirect to={this.state.editUrl}/>
         }
@@ -72,6 +83,8 @@ class CardsPage extends Component {
         return (
             <>
                 <div className="container p-5">
+                    <Button variant="outline-info" onClick={() => this.createCard(this.state.groupId)}>Crate A
+                        Card</Button>
                     {loadingOrNoItems}
                     <div className="row row justify-content-around">
                         {fetchedCards}
