@@ -55,6 +55,7 @@ const cardReadStart = (state, action) => {
 };
 
 const cardReadSuccess = (state, action) => {
+    console.log(`in reducer: ${state}`);
     return updateObject(state,
         {
             loading: false,

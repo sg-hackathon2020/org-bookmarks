@@ -31,6 +31,7 @@ class UpdateCard extends Component {
     }
 
     updateStateWithOriginal = (card) => {
+        console.log(`inside update state with original: ${card}`);
         this.setState({
             title: card.title,
             description: card.description,
@@ -40,8 +41,9 @@ class UpdateCard extends Component {
 
     render() {
         const {card, loading} = this.props;
+        console.log(`looking directly at the card ${JSON.stringify(card)}`);
         const cardArray = {...card};
-
+        console.log(`card array: ${cardArray.description}`);
         let spinner = null;
 
         if (loading) {

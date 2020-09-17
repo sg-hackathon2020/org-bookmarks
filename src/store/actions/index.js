@@ -25,3 +25,8 @@ export {
     toggleAdmin
 }
     from './admin';
+
+export {
+    createTinyUrls,
+    htm
+} from './tinyurl';
