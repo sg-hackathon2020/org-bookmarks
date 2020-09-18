@@ -5,7 +5,8 @@ const initialState = {
     url: null,
     loading: false,
     tinyUrl: null,
-    error: null
+    error: null,
+    urls: null
 }
 
 const createTinyUrl = (state, action) => {
@@ -34,7 +35,32 @@ const createTinyUrlFailure = (state, action) => {
         tinyUrl: null,
         url: null
     });
-}
+};
+
+
+const fetchAllMyUrlsStart = (state, action) => {
+    console.log('i am in start');
+    return updateObject(state, {
+        error: null,
+        loading: true
+    });
+};
+
+const fetchAllMyUrlsSuccess = (state, action) => {
+    console.log(`i am here: ${action}`);
+    return updateObject(state, {
+        error: null,
+        loading: null,
+        urls: action.urls
+    });
+};
+
+const fetchAllMyUrlsFailure = (state, action) => {
+    return updateObject(state, {
+        error: action.error,
+        loading: null
+    });
+};
 
 const hideTinyUrlModal = (state, action) => {
     return updateObject(state, {tinyUrl: null});
@@ -50,9 +76,15 @@ const reducer = (state = initialState, action) => {
             return createTinyUrlFailure(state, action);
         case actionTypes.HIDE_TINY_URL_MODAL:
             return hideTinyUrlModal(state, action);
+        case actionTypes.SHOW_MY_TINY_URLS_START:
+            return fetchAllMyUrlsStart(state, action);
+        case actionTypes.SHOW_MY_TINY_URLS_SUCCESS:
+            return fetchAllMyUrlsSuccess(state, action);
+        case actionTypes.SHOW_MY_TINY_URLS_FAILURE:
+            return fetchAllMyUrlsFailure(state, action);
         default:
             return state;
     }
-}
+};
 
 export default reducer;

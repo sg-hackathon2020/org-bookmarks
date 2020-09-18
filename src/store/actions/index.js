@@ -28,5 +28,6 @@ export {
 
 export {
     createTinyUrls,
-    htm
+    htm,
+    fetchAllMyTinyUrls
 } from './tinyurl';

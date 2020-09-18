@@ -6,6 +6,7 @@ import Button from "react-bootstrap/Button";
 import {Link} from "react-router-dom";
 import Table from "react-bootstrap/Table";
 import {Spinner} from "react-bootstrap";
+import LoadingComponent from "../../components/UI/loading/LoadingComponent";
 
 
 class GroupsPage extends Component {
@@ -32,37 +33,45 @@ class GroupsPage extends Component {
         let table = null;
         if (groups) {
             table = groups.map(group => {
+                const myRoute = `/cards-page/${group.id}`;
                 return <tr>
                     <td>{group.id}</td>
                     <td>{group.groupName}</td>
-                    <td>{group.clusterName}{group.tribeName}{group.ftName}</td>
-                    <td><Button variant="danger" as={Link} size="sm" to="/newGroup" type="submit">X</Button>{' '}</td>
+                    <td>{group.clusterName}/{group.tribeName}/{group.ftName}</td>
+                    <td><Button variant="outline-info" as={Link} to={myRoute}>Go</Button></td>
                 </tr>
             });
         } else {
             table = null
         }
-        return (
-            <div className="container">
-                <div className="row p-1"><NewGroupButton/></div>
-                <div className="row p-1">
+
+        if (loading) {
+            return (<LoadingComponent/>);
+        } else {
+            return (
+                <div className="container">
                     {spinner}
-                    <Table striped bordered hover variant="dark">
-                        <thead>
-                        <tr>
-                            <th>#</th>
-                            <th>Group Name</th>
-                            <th>Last Name</th>
-                            <th>Username</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        {table}
-                        </tbody>
-                    </Table>
+                    <div className="container-fluid row p-1 m-1 bg-dark"><NewGroupButton/>
+
+                    </div>
+                    <div className="row p-1">
+                        <Table striped bordered hover variant="dark">
+                            <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>Group Name</th>
+                                <th>cluster/tribe/ft</th>
+                                <th>visit the group</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            {table}
+                            </tbody>
+                        </Table>
+                    </div>
                 </div>
-            </div>
-        );
+            );
+        }
     }
 }
 

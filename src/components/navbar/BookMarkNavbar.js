@@ -2,6 +2,8 @@ import React, {Component} from "react";
 import {Nav, Navbar} from "react-bootstrap";
 import {Link} from "react-router-dom";
 
+/*                    <Route path="/groups" exact component={GroupsPage}/>
+*/
 class BookMarkNavbar extends Component {
     render() {
         return (
@@ -11,7 +13,7 @@ class BookMarkNavbar extends Component {
                         <Navbar.Brand as={Link} to="/">Navbar</Navbar.Brand>
                         <Nav className="mr-auto">
                             <Nav.Link as={Link} to="/">Home</Nav.Link>
-                            <Nav.Link as={Link} to="/groups">login</Nav.Link>
+                            <Nav.Link as={Link} to="/groups">groups</Nav.Link>
                             <Nav.Link as={Link} to="/tiny-url">Tiny Url</Nav.Link>
                         </Nav>
                     </Navbar>

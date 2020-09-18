@@ -181,6 +181,7 @@ export const createCard = (title, description, url, groupId, prefix) => {
         }).then(response => {
             dispatch(cardCreateSuccess());
         }).catch(err => {
+            console.log(JSON.stringify(err));
             dispatch(cardCreateFailure(err));
         });
 

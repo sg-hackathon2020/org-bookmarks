@@ -77,7 +77,7 @@ class CardForm extends Component {
         if (this.props.isUpdating) {
             pageTitle = <div className="h3 text-white">Update Card</div>
         } else {
-            pageTitle = <div className="h3 text-white">Update Card</div>
+            pageTitle = <div className="h3 text-white">Create Card</div>
         }
 
         return (

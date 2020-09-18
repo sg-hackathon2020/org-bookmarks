@@ -48,5 +48,11 @@ export const CREATE_TINY_URL_FAILURE = 'CREATE_TINY_URL_FAILURE';
 
 export const HIDE_TINY_URL_MODAL = 'HIDE_TINY_URL_MODAL';
 
+/*show all tiny urls of the user*/
+export const SHOW_MY_TINY_URLS_START = 'SHOW_MY_TINY_URLS';
+export const SHOW_MY_TINY_URLS_SUCCESS = 'SHOW_MY_TINY_URLS_SUCCESS';
+export const SHOW_MY_TINY_URLS_FAILURE = 'SHOW_MY_TINY_URLS_FAILURE';
+
+
 
 
