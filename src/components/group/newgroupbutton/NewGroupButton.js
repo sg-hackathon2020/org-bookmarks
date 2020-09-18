@@ -7,7 +7,7 @@ const NewGroupButton = () => {
     return (
         <>
             <div>
-                <Button variant="dark" as={Link} size="lg" to="/newGroup" type="submit">Create New Group</Button>{' '}
+                <Button variant="outline-info" as={Link} to="/groups/new" type="submit">Create New Group</Button>
             </div>
         </>
     );

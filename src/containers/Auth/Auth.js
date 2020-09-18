@@ -1,11 +1,8 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
-/*
-import Button from '../../components/UI/Button/Button';
-*/
-
+import {Redirect} from "react-router-dom";
 import * as actions from '../../store/actions/index';
-import {Button, Card, Form, Spinner} from "react-bootstrap";
+import {Alert, Button, Card, Form, Spinner} from "react-bootstrap";
 
 class Auth extends Component {
     state = {
@@ -25,15 +22,7 @@ class Auth extends Component {
         });
     }
 
-    spinner = () => {
-
-    }
-
     render() {
-
-        /* if (this.props.loading) {
-             form = <Spinner animation="grow" variant="success"/>
-         }*/
 
         let errorMessage = null;
         let spinner = null;
@@ -43,38 +32,70 @@ class Auth extends Component {
         }
 
         if (this.props.error) {
+            let err;
+            switch (this.props.error.message) {
+                case 'ADMIN_ONLY_OPERATION':
+                    err = 'Please Enter Something!';
+                    break;
+                case 'MISSING_EMAIL':
+                    err = 'Enter Email Id!';
+                    break;
+                case 'MISSING_PASSWORD':
+                    err = 'Enter Password!';
+                    break;
+                case 'EMAIL_EXISTS':
+                    err = 'Email Already Exists! Switch To Sign-In!'
+                    break;
+                default:
+                    err = this.props.error.message;
+                    break;
+            }
             errorMessage = (
-                <p className="text-white">{this.props.error.message}</p>
+                <>
+                    <Alert variant="danger">
+                        <p className="text-blue">{err}</p>
+                    </Alert>
+                </>
             );
         }
-
-        return (
-            <Card style={{width: '50rem'}} className="bg-dark">
-                <div className="container pt-5 pb-5">
-                    <div className="container pt-5 pb-5">
-                        <Form onSubmit={this.submitHandler} className="bg-dark">
-                            <Form.Group controlId="email">
-                                <Form.Label className="text-white">Email</Form.Label>
-                                <Form.Control type="email" placeholder="Enter Email"
-                                              onChange={this.onInputChange}/>
-                            </Form.Group>
-                            <Form.Group controlId="password">
-                                <Form.Label className="text-white">Password</Form.Label>
-                                <Form.Control type="password" placeholder="Enter Password"
-                                              onChange={this.onInputChange}/>
-                            </Form.Group>
-                            <Button className="p-1 m-1 col-4 d-flex justify-content-center" variant="primary" type="submit">
-                                Submit
-                            </Button>
-                        </Form>
-                        <Button className="p-1 m-1 col-4 d-flex justify-content-center"
-                            onClick={this.switchAuthModeHandler}
-                            btnType="Danger">SWITCH TO {this.state.isSignup ? 'SIGNIN' : 'SIGNUP'}</Button>
-                        {spinner}
-                        {errorMessage}
-                    </div>
+        let authRedirect = null;
+        if (this.props.isAuthenticated) {
+            authRedirect = <Redirect to="/"/>
+        }
+        return (<>
+                {authRedirect}
+                <div className="container-fluid d-flex justify-content-center">
+                    <Card style={{width: '25rem'}} className="bg-dark">
+                        <div className="container pt-5 pb-5">
+                            <div className="container pt-5 pb-5">
+                                <Form onSubmit={this.submitHandler} className="bg-dark">
+                                    <Form.Group controlId="email">
+                                        <Form.Label className="text-white">Email</Form.Label>
+                                        <Form.Control type="email" placeholder="Enter Email"
+                                                      onChange={this.onInputChange}/>
+                                    </Form.Group>
+                                    <Form.Group controlId="password">
+                                        <Form.Label className="text-white">Password</Form.Label>
+                                        <Form.Control type="password" placeholder="Enter Password"
+                                                      onChange={this.onInputChange}/>
+                                    </Form.Group>
+                                    <Button className="container-fluid d-flex justify-content-center m-1"
+                                            variant="outline-primary"
+                                            type="submit">
+                                        Submit
+                                    </Button>
+                                </Form>
+                                <Button className="container-fluid d-flex justify-content-center m-1"
+                                        variant="outline-info"
+                                        onClick={this.switchAuthModeHandler}
+                                        btnType="Danger">SWITCH TO {this.state.isSignup ? 'SIGNIN' : 'SIGNUP'}</Button>
+                                {spinner}
+                                {errorMessage}
+                            </div>
+                        </div>
+                    </Card>
                 </div>
-            </Card>
+            </>
         );
     }
 
@@ -95,7 +116,8 @@ class Auth extends Component {
 const mapStateToPros = state => {
     return {
         loading: state.auth.loading,
-        error: state.auth.error
+        error: state.auth.error,
+        isAuthenticated: state.auth.token !== null,
     }
 }
 

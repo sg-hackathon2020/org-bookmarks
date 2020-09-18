@@ -1,5 +1,16 @@
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
+## FRAMEWORKS AND TECHNOLOGY
+
+| Framework |
+| ------------------------------------------------------------------------------------------ |  
+| React js |
+| React redux |
+| axios |
+| react router dom |
+| firebase for auth |
+| bootstrap |
+
 ## Available Scripts
 
 In the project directory, you can run:

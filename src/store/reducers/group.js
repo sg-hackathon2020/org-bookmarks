@@ -5,7 +5,8 @@ import * as actionTypes from "../actions/actionTypes";
 const initialState = {
     error: null,
     loading: false,
-    groups: null
+    groups: null,
+    redirectTo: null
 };
 
 const groupSaveStart = (state, action) => {
@@ -13,7 +14,7 @@ const groupSaveStart = (state, action) => {
 };
 
 const groupSaveSuccess = (state, action) => {
-    return updateObject(state, {loading: false});
+    return updateObject(state, {loading: false, redirectTo: true, groups: null});
 };
 
 const groupSaveFail = (state, action) => {
@@ -24,11 +25,15 @@ const groupSaveFail = (state, action) => {
 };
 
 const groupsGetAllSuccess = (state, action) => {
-    return updateObject(state, {groups: action.groups})
+    return updateObject(state, {groups: action.groups, loading: false})
 }
 
 const groupsGetAll = (state, action) => {
-    return updateObject(state, {error: null});
+    return updateObject(state, {error: null, redirectTo: null, loading: true});
+}
+
+const groupsGetAllFail = (state, action) => {
+    return updateObject(state, {error: null, redirectTo: null, loading: false});
 }
 
 const reducer = (state = initialState, action) => {
@@ -43,6 +48,8 @@ const reducer = (state = initialState, action) => {
             return groupsGetAll(state, action);
         case actionTypes.GROUP_GET_ALL_SUCCESS:
             return groupsGetAllSuccess(state, action);
+        case actionTypes.GROUP_GET_ALL_FAILURE:
+            return groupsGetAllFail()
         default:
             return state;
     }

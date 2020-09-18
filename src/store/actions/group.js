@@ -50,7 +50,7 @@ export const groupsGetAll = () => {
     return dispatch => {
         dispatch(getAllGroups());
 
-        let url = 'http://localhost:8080/api/v1/group'
+        let url = 'https://beyond-bookmarks-api.herokuapp.com/api/v1/group'
         axios.get(url).then(response => {
             dispatch(getAllGroupsSuccess(response.data))
         }).catch(err => {
@@ -73,7 +73,7 @@ export const groupSave = (groupName, clusterName, tribeName, ftName) => {
             ftName: ftName
         };
 
-        let url = 'http://localhost:8080/api/v1/group';
+        let url = 'https://beyond-bookmarks-api.herokuapp.com/api/v1/group';
 
         axios.post(url, groupData).then(response => {
             console.log(response);

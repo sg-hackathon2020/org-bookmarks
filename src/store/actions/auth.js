@@ -55,7 +55,6 @@ export const auth = (email, password, isSignup) => {
         }
         axios.post(url, authData)
             .then(response => {
-                console.log(response);
                 const expirationTime = new Date(new Date().getTime() + response.data.expiresIn * 1000);
                 localStorage.setItem('token', response.data.idToken);
                 localStorage.setItem('expirationTime', expirationTime);
@@ -63,9 +62,11 @@ export const auth = (email, password, isSignup) => {
                 localStorage.setItem('userId', response.data.userId);
                 dispatch(authSuccess(response.data.idToken, response.data.localId));
                 dispatch(checkAuthTimeout(response.data.expiresIn));
+                axios.get('https://beyond-bookmarks-api.herokuapp.com/api/v1/users/validate', {
+                    "Authorization": `Bearer ${localStorage.getItem('token')}`
+                }).catch(err => console.log(err));
             })
             .catch(err => {
-                console.log(err);
                 dispatch(authFail(err.response.data.error));
             });
     };
@@ -77,14 +78,14 @@ export const authCheckState = () => {
         if (!token) {
             dispatch(logout());
         } else {
-            const expirationTime = localStorage.getItem('expirationTime');
+            const expirationTime = new Date(localStorage.getItem('expirationTime'));
             if (expirationTime > new Date()) {
                 dispatch(authSuccess());
             } else {
                 const userId = localStorage.getItem('userId');
                 dispatch(logout(token, userId));
-                dispatch(checkAuthTimeout(expirationTime.getSeconds() - new Date().getSeconds()));
+                dispatch(checkAuthTimeout((expirationTime.getTime() - new Date().getTime()) / 1000));
             }
         }
-    }
-}
+    };
+};

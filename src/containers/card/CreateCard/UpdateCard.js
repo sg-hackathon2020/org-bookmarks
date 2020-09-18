@@ -2,6 +2,8 @@ import React, {Component} from "react";
 import * as actions from "../../../store/actions";
 import {connect} from "react-redux";
 import CardForm from "../../../components/cards/cardform/CardForm";
+import {Spinner} from "react-bootstrap";
+import {Redirect} from "react-router-dom";
 
 class UpdateCard extends Component {
 
@@ -17,7 +19,7 @@ class UpdateCard extends Component {
 
     cardSubmitHandler = (event) => {
         event.preventDefault();
-        this.props.onCardSave(this.state.title, this.state.description, this.state.url, this.state.groupId);
+        this.props.onCardSave(this.state.title, this.state.description, this.state.url, this.state.cardId, this.state.groupId);
     }
 
     //consume groupId from route param
@@ -29,6 +31,7 @@ class UpdateCard extends Component {
     }
 
     updateStateWithOriginal = (card) => {
+        console.log(`inside update state with original: ${card}`);
         this.setState({
             title: card.title,
             description: card.description,
@@ -37,13 +40,26 @@ class UpdateCard extends Component {
     };
 
     render() {
-        const {card, error, pending} = this.props;
+        const redirectLink = `/cards-page/${this.state.groupId}`;
+        const {card, loading} = this.props;
         const cardArray = {...card};
+        let spinner = null;
+
+        if (loading) {
+            spinner = <Spinner animation="grow" variant="success"/>
+        }
+
+        let redirect = null;
+        if (this.props.redirectTo) {
+            redirect = <Redirect to={redirectLink}/>
+        }
         return (
 
-            <CardForm whenInputChanges={this.onInputChange} whenFormIsSubmitted={this.cardSubmitHandler}
-                      loading={this.props.loading} error={this.props.error} data={cardArray}
-                      isUpdating={true}/>
+            <> {spinner}
+                {redirect}
+                <CardForm whenInputChanges={this.onInputChange} whenFormIsSubmitted={this.cardSubmitHandler}
+                          loading={this.props.loading} error={this.props.error} data={cardArray}
+                          isUpdating={true}/></>
         );
     }
 
@@ -68,14 +84,14 @@ const mapStateToProps = state => {
     return {
         loading: state.card.loading,
         error: state.card.error,
-        card: state.card.update_card
-
+        card: state.card.update_card,
+        redirectTo: state.card.redirectTo
     };
 };
 
 const mapDispatchToProps = dispatch => {
     return {
-        onCardSave: (title, description, url, groupId) => dispatch(actions.updateCard(title, description, url, groupId)),
+        onCardSave: (title, description, url, cardId, groupId) => dispatch(actions.updateCard(title, description, url, cardId, groupId)),
         fetchCard: (groupId, cardId) => dispatch(actions.readCard(groupId, cardId, false))
     };
 };

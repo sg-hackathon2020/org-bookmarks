@@ -5,6 +5,8 @@ import * as actions from "../../store/actions";
 import Button from "react-bootstrap/Button";
 import {Link} from "react-router-dom";
 import Table from "react-bootstrap/Table";
+import {Spinner} from "react-bootstrap";
+import LoadingComponent from "../../components/UI/loading/LoadingComponent";
 
 
 class GroupsPage extends Component {
@@ -21,46 +23,62 @@ class GroupsPage extends Component {
     }
 
     render() {
-        const {groups, error, pending} = this.props;
+        const {groups, loading} = this.props;
+
+        let spinner = null;
+
+        if (loading) {
+            spinner = <Spinner animation="grow" variant="success"/>
+        }
         let table = null;
-        console.log(groups);
         if (groups) {
             table = groups.map(group => {
+                const myRoute = `/cards-page/${group.id}`;
                 return <tr>
                     <td>{group.id}</td>
                     <td>{group.groupName}</td>
-                    <td>{group.clusterName}{group.tribeName}{group.ftName}</td>
-                    <td><Button variant="danger" as={Link} size="sm" to="/newGroup" type="submit">X</Button>{' '}</td>
+                    <td>{group.clusterName}/{group.tribeName}/{group.ftName}</td>
+                    <td><Button variant="outline-info" as={Link} to={myRoute}>Go</Button></td>
                 </tr>
             });
         } else {
             table = null
         }
-        return (
-            <div className="container">
-                <div className="row p-1"><NewGroupButton/></div>
-                <div className="row p-1">
-                    <Table striped bordered hover variant="dark">
-                        <thead>
-                        <tr>
-                            <th>#</th>
-                            <th>Group Name</th>
-                            <th>Last Name</th>
-                            <th>Username</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        {table}
-                        </tbody>
-                    </Table>
+
+        if (loading) {
+            return (<LoadingComponent/>);
+        } else {
+            return (
+                <div className="container">
+                    {spinner}
+                    <div className="container-fluid row p-1 m-1 bg-dark"><NewGroupButton/>
+
+                    </div>
+                    <div className="row p-1">
+                        <Table striped bordered hover variant="dark">
+                            <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>Group Name</th>
+                                <th>cluster/tribe/ft</th>
+                                <th>visit the group</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            {table}
+                            </tbody>
+                        </Table>
+                    </div>
                 </div>
-            </div>
-        );
+            );
+        }
     }
 }
 
 const mapStateToProps = state => ({
-    groups: state.group.groups
+    groups: state.group.groups,
+    error: state.group.error,
+    loading: state.group.loading
 })
 
 const mapDispatchToProps = dispatch => {
