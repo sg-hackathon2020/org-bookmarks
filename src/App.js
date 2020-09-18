@@ -42,7 +42,7 @@ class App extends Component {
                     <Route path="/groups/:id" exact component={TestComponent2}/>
                     <Route path="/card-update/:groupId/:cardId" component={UpdateCard}/>
                     <Route path="/cards-page/:groupId" component={CardsPage}/>
-                    <Route path="/add-remove-admin" component={AddRemoveAdmin}/>
+                    <Route path="/add-remove-admin/:groupId" component={AddRemoveAdmin}/>
                     <Route path="/logout" component={Logout}/>
                     <Route path="/" exact component={LandingPage}/>}
                     <Redirect to="/"/>

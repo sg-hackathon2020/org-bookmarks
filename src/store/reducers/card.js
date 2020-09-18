@@ -83,7 +83,9 @@ const groupCardReadSuccess = (state, action) => {
     return updateObject(state,
         {
             loading: false,
-            cards: action.cards
+            cards: action.cards,
+            redirectTo: false,
+            error: null
         });
 };
 

@@ -26,7 +26,7 @@ class CreateCard extends Component {
     }
 
     render() {
-
+        const redirectLink = `/cards-page/${this.state.groupId}`;
         const {card, loading} = this.props;
         const cardArray = {...card};
 
@@ -37,7 +37,7 @@ class CreateCard extends Component {
         }
         let redirect = null;
         if (this.props.redirectTo) {
-            redirect = <Redirect to="/"/>
+            redirect = <Redirect to={redirectLink}/>
         }
 
         return (<>

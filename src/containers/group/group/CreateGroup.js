@@ -3,6 +3,7 @@ import {Button, Card, Form, Spinner} from "react-bootstrap";
 import {connect} from "react-redux";
 
 import * as actions from "../../../store/actions";
+import {Redirect} from "react-router-dom";
 
 class CreateGroup extends Component {
 
@@ -19,9 +20,13 @@ class CreateGroup extends Component {
     }
 
     render() {
-
+        const redirectLink = `/groups`;
         let errorMessage = null;
         let spinner = null;
+        let redirect = null;
+        if (this.props.redirectTo) {
+            redirect = <Redirect to={redirectLink}/>
+        }
 
         if (this.props.loading) {
             spinner = <Spinner animation="grow" variant="success"/>
@@ -33,39 +38,47 @@ class CreateGroup extends Component {
             );
         }
         return (
-            <Card style={{width: '50rem'}} className="bg-dark">
-                <div className="container pt-5 pb-5">
+            <div className="container-fluid d-flex justify-content-center">
+                <Card style={{width: '40rem'}} className="bg-dark">
                     <div className="container pt-5 pb-5">
-                        <Form onSubmit={this.submitHandler} className="bg-dark">
-                            <Form.Group controlId="groupName">
-                                <Form.Label className="text-white">Group Name</Form.Label>
-                                <Form.Control type="text" placeholder="Enter Group Name" onChange={this.onInputChange}/>
-                            </Form.Group>
+                        <div className="container pt-5 pb-5">
+                            <Form onSubmit={this.submitHandler} className="bg-dark">
+                                <Form.Group controlId="groupName">
+                                    <Form.Label className="text-white">Group Name</Form.Label>
+                                    <Form.Control type="text" placeholder="Enter Group Name"
+                                                  onChange={this.onInputChange}/>
+                                </Form.Group>
 
-                            <Form.Group controlId="clusterName">
-                                <Form.Label className="text-white">Cluster Name</Form.Label>
-                                <Form.Control type="text" placeholder="Enter Group Name" onChange={this.onInputChange}/>
-                            </Form.Group>
+                                <Form.Group controlId="clusterName">
+                                    <Form.Label className="text-white">Cluster Name</Form.Label>
+                                    <Form.Control type="text" placeholder="Enter Cluster Name"
+                                                  onChange={this.onInputChange}/>
+                                </Form.Group>
 
-                            <Form.Group controlId="tribeName">
-                                <Form.Label className="text-white">Tribe Name</Form.Label>
-                                <Form.Control type="text" placeholder="Enter Group Name" onChange={this.onInputChange}/>
-                            </Form.Group>
+                                <Form.Group controlId="tribeName">
+                                    <Form.Label className="text-white">Tribe Name</Form.Label>
+                                    <Form.Control type="text" placeholder="Enter Tribe Name"
+                                                  onChange={this.onInputChange}/>
+                                </Form.Group>
 
-                            <Form.Group controlId="ftName">
-                                <Form.Label className="text-white">Group Name</Form.Label>
-                                <Form.Control type="text" placeholder="Enter Group Name" onChange={this.onInputChange}/>
-                            </Form.Group>
-                            <Button className="p-1 m-1 col-4 d-flex justify-content-center" variant="primary"
-                                    type="submit" onClick={this.submitHandler}>
-                                Submit
-                            </Button>
-                            {spinner}
-                            {errorMessage}
-                        </Form>
+                                <Form.Group controlId="ftName">
+                                    <Form.Label className="text-white">Feature Team Name</Form.Label>
+                                    <Form.Control type="text" placeholder="Enter Feature Team Name"
+                                                  onChange={this.onInputChange}/>
+                                </Form.Group>
+                                <Button className="container-fluid d-flex justify-content-center m-1"
+                                        variant="outline-info"
+                                        type="submit" onClick={this.submitHandler}>
+                                    Submit
+                                </Button>
+                                {spinner}
+                                {errorMessage}
+                                {redirect}
+                            </Form>
+                        </div>
                     </div>
-                </div>
-            </Card>
+                </Card>
+            </div>
         );
     }
 
@@ -93,7 +106,8 @@ class CreateGroup extends Component {
 const mapStateToPros = state => {
     return {
         loading: state.group.loading,
-        error: state.group.error
+        error: state.group.error,
+        redirectTo: state.group.redirectTo
     };
 };
 

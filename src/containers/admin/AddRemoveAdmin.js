@@ -1,5 +1,4 @@
 import React, {Component} from "react";
-import NewGroupButton from "../../components/group/newgroupbutton/NewGroupButton";
 import Table from "react-bootstrap/Table";
 import * as actions from "../../store/actions";
 import {connect} from "react-redux";
@@ -7,11 +6,8 @@ import {Button, Spinner} from "react-bootstrap";
 
 
 class AddRemoveAdmin extends Component {
-    constructor(props) {
-        super(props);
-
-        this.state = {};
-
+    state = {
+        groupId: this.props.match.params.groupId
     }
 
     componentDidMount() {
@@ -22,7 +18,7 @@ class AddRemoveAdmin extends Component {
 
 
     toggleAdmin = (groupId, userId) => {
-        this.props.addRemoveAdmin(groupId, userId);
+        this.props.addRemoveAdmin(this.state.groupId, userId);
     }
 
     render() {
@@ -59,7 +55,8 @@ class AddRemoveAdmin extends Component {
                 {spinner}
                 <div>
                     <div className="container">
-                        <div className="row p-1"><NewGroupButton/></div>
+                        <div className="row p-1">
+                        </div>
                         <div className="row p-1">
                             <Table striped bordered hover variant="dark">
                                 <thead>

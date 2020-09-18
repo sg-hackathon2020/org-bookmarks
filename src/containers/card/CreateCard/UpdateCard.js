@@ -40,10 +40,9 @@ class UpdateCard extends Component {
     };
 
     render() {
+        const redirectLink = `/cards-page/${this.state.groupId}`;
         const {card, loading} = this.props;
-        console.log(`looking directly at the card ${JSON.stringify(card)}`);
         const cardArray = {...card};
-        console.log(`card array: ${cardArray.description}`);
         let spinner = null;
 
         if (loading) {
@@ -51,7 +50,7 @@ class UpdateCard extends Component {
         }
         let redirect = null;
         if (this.props.redirectTo) {
-            redirect = <Redirect to="/"/>
+            redirect = <Redirect to={redirectLink}/>
         }
         return (
 

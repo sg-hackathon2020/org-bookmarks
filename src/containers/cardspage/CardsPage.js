@@ -3,7 +3,7 @@ import BookMarkCard from "../../components/cards/BookMarkCard";
 import * as actions from "../../store/actions";
 import {connect} from "react-redux";
 import LoadingComponent from "../../components/UI/loading/LoadingComponent";
-import {Redirect} from "react-router-dom";
+import {Link, Redirect} from "react-router-dom";
 import {Button} from "react-bootstrap";
 
 
@@ -72,19 +72,28 @@ class CardsPage extends Component {
 
         if (cards && !loading) {
             fetchedCards = [...cards].map((card, index) => {
+                console.log(JSON.stringify(card));
                 return <BookMarkCard key={card.id}
                                      title={card.title}
                                      description={card.description}
                                      tinyUrl={card.shortUrl}
+                                     longUrl={card.longUrl}
                                      clicked={() => this.cardSelectedHandler(card.id)}
                                      whenEdit={() => this.cardEditHandler(card.id)}/>
             });
         }
+        const redirectUrlToAddAdmin = `/add-remove-admin/${this.state.groupId}`
+
         return (
             <>
                 <div className="container p-5">
-                    <Button variant="outline-info" onClick={() => this.createCard(this.state.groupId)}>Crate A
-                        Card</Button>
+                    <div className="container-fluid row p-1 m-1 bg-dark">
+                        <Button variant="outline-info p-1 m-1" onClick={() => this.createCard(this.state.groupId)}>Crate
+                            A
+                            Card</Button>
+                        <Button variant="outline-info p-1 m-1" as={Link} to={redirectUrlToAddAdmin} type="submit">Add
+                            Remove Admin</Button>
+                    </div>
                     {loadingOrNoItems}
                     <div className="row row justify-content-around">
                         {fetchedCards}
