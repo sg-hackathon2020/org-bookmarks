@@ -58,7 +58,7 @@ export const userAllTinyUrlFailure = (error) => {
 export const createTinyUrls = (url) => {
     return dispatch => {
         dispatch(createTinyUrl());
-        let resourceUrl = `http://localhost:8080/api/v1/tinyUrl`;
+        let resourceUrl = `https://beyond-bookmarks-api.herokuapp.com/api/v1/tinyUrl`;
         axios.post(resourceUrl, {url: url}, {
             headers: {
                 'Authorization': `Bearer ${localStorage.getItem('token')}`
@@ -74,7 +74,7 @@ export const createTinyUrls = (url) => {
 export const fetchAllMyTinyUrls = () => {
     return dispatch => {
         dispatch(userAllTinyUrlStart());
-        let resourceUrl = `http://localhost:8080/api/v1/tinyUrls`;
+        let resourceUrl = `https://beyond-bookmarks-api.herokuapp.com/api/v1/tinyUrls`;
         axios.get(resourceUrl, {
             headers: {
                 'Authorization': `Bearer ${localStorage.getItem('token')}`

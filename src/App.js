@@ -44,8 +44,9 @@ class App extends Component {
                     <Route path="/cards-page/:groupId" component={CardsPage}/>
                     <Route path="/add-remove-admin/:groupId" component={AddRemoveAdmin}/>
                     <Route path="/logout" component={Logout}/>
-                    <Route path="/" exact component={LandingPage}/>}
-                    <Redirect to="/"/>
+                    {this.props.isAuthenticated ? <Route path="/" exact component={LandingPage}/> : null}
+                    {this.props.isAuthenticated ? <Redirect to="/"/> : null}
+                    {!this.props.isAuthenticated ? <Redirect to="/auth"/> : null}
                 </Switch>
             </div>
         );

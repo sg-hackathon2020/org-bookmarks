@@ -48,7 +48,7 @@ export const toggleGroupAdminFailure = (error) => {
 export const getAdminView = (groupId) => {
     return dispatch => {
         dispatch(getAdminViewStart(groupId));
-        let resourceUrl = `http://localhost:8080/api/v1/groups/${groupId}/admins`;
+        let resourceUrl = `https://beyond-bookmarks-api.herokuapp.com/api/v1/groups/${groupId}/admins`;
         axios.get(resourceUrl, {
             headers: {
                 'Authorization': `Bearer ${localStorage.getItem('token')}`
@@ -65,7 +65,7 @@ export const getAdminView = (groupId) => {
 export const toggleAdmin = (groupId, userId) => {
     return dispatch => {
         dispatch(toggleGroupAdminStart(groupId, userId));
-        let resourceUrl = `http://localhost:8080/api/v1/groups/${groupId}/admins`;
+        let resourceUrl = `https://beyond-bookmarks-api.herokuapp.com/api/v1/groups/${groupId}/admins`;
         axios.post(resourceUrl, {
             groupId: groupId,
             userId: userId
