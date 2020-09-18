@@ -97,7 +97,7 @@ export const groupCardReadFailure = (error) => {
 export const readCard = (groupId, cardId, withGroup) => {
     return dispatch => {
         dispatch(cardReadStart());
-        let resourceUrl = `http://localhost:8080/api/v1/groups/cards/${cardId}`;
+        let resourceUrl = `https://beyond-bookmarks-api.herokuapp.com/api/v1/groups/cards/${cardId}`;
         axios.get(resourceUrl, {
             headers: {
                 'Authorization': `Bearer ${localStorage.getItem('token')}`
@@ -114,7 +114,7 @@ export const readCard = (groupId, cardId, withGroup) => {
 export const readGroupCard = (groupId) => {
     return dispatch => {
         dispatch(groupCardReadStart());
-        let resourceUrl = `http://localhost:8080/api/v1/groups/${groupId}/cards`;
+        let resourceUrl = `https://beyond-bookmarks-api.herokuapp.com/api/v1/groups/${groupId}/cards`;
         axios.get(resourceUrl, {
             headers: {
                 'Authorization': `Bearer ${localStorage.getItem('token')}`
@@ -154,7 +154,7 @@ export const updateCard = (title, description, url, cardId, groupId) => {
         const cardData = extractCardDataForUpdate(title, description, url, cardId);
 
 
-        let resourceUrl = `http://localhost:8080/api/v1/groups/${groupId}/cards`;
+        let resourceUrl = `https://beyond-bookmarks-api.herokuapp.com/api/v1/groups/${groupId}/cards`;
 
         axios.put(resourceUrl, cardData, {
             headers: {
@@ -172,7 +172,7 @@ export const createCard = (title, description, url, groupId, prefix) => {
     return dispatch => {
         dispatch(cardCreateStart());
         const cardData = extractCardData(title, description, url, groupId, prefix);
-        let resourceUrl = `http://localhost:8080/api/v1/groups/${groupId}/cards`;
+        let resourceUrl = `https://beyond-bookmarks-api.herokuapp.com/api/v1/groups/${groupId}/cards`;
 
         axios.post(resourceUrl, cardData, {
             headers: {

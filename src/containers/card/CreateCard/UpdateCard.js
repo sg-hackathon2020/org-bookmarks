@@ -19,7 +19,7 @@ class UpdateCard extends Component {
 
     cardSubmitHandler = (event) => {
         event.preventDefault();
-        this.props.onCardSave(this.state.title, this.state.description, this.state.url, this.props.card.id, this.state.groupId);
+        this.props.onCardSave(this.state.title, this.state.description, this.state.url, this.state.cardId, this.state.groupId);
     }
 
     //consume groupId from route param
@@ -48,6 +48,7 @@ class UpdateCard extends Component {
         if (loading) {
             spinner = <Spinner animation="grow" variant="success"/>
         }
+
         let redirect = null;
         if (this.props.redirectTo) {
             redirect = <Redirect to={redirectLink}/>

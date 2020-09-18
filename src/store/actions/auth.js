@@ -62,7 +62,7 @@ export const auth = (email, password, isSignup) => {
                 localStorage.setItem('userId', response.data.userId);
                 dispatch(authSuccess(response.data.idToken, response.data.localId));
                 dispatch(checkAuthTimeout(response.data.expiresIn));
-                axios.get('http://localhost:8080/api/v1/users/validate', {
+                axios.get('https://beyond-bookmarks-api.herokuapp.com/api/v1/users/validate', {
                     "Authorization": `Bearer ${localStorage.getItem('token')}`
                 }).catch(err => console.log(err));
             })
